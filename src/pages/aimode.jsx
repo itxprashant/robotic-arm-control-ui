@@ -15,6 +15,39 @@ if (recognition) {
 }
 
 function AIModePage() {
+  const [voices, setVoices] = useState([]);
+  
+  useEffect(() => {
+    // Load available voices
+    const loadVoices = () => {
+      const availableVoices = window.speechSynthesis.getVoices();
+      setVoices(availableVoices);
+    };
+
+    // Some browsers require this event listener
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+    loadVoices();
+  }, []);
+
+  const speak = (text) => {
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    // Select a female voice (if available)
+    const femaleVoice = voices.find(voice => 
+      voice.name.includes("Female") || voice.voiceURI.includes("Female")
+    );
+
+    if (femaleVoice) {
+      utterance.voice = femaleVoice;
+    }
+
+    synth.speak(utterance);
+  };
+
+
+
+
   const [text, setText] = useState("");
   const [isListening, setIsListening] = useState(false);
 
@@ -44,15 +77,38 @@ function AIModePage() {
     };
   }, [isListening]); // Re-run when isListening changes
 
-  return (
+
+//   // text to speech
+// const speak = (text) => {
+//   const synth = window.speechSynthesis;
+//   const utterance = new SpeechSynthesisUtterance(text);
+//   synth.speak(utterance);
+// };
+
+
+
+const [inputText, setInputText] = useState("");
+
+return (
     <div>
-      <button onClick={() => setIsListening((prev) => !prev)}>
-        {isListening ? "Stop Listening" : "Start Listening"}
-      </button>
-      <p>{text}</p>
+        <button onClick={() => setIsListening((prev) => !prev)}>
+            {isListening ? "Stop Listening" : "Start Listening"}
+        </button>
+        {/* add a newline */}
+        <br />
+
+        {/* Example Usage */}
+        <input 
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+        />
+        <button onClick={() => speak(inputText)}>Speak</button>
+        <p>{text}</p>
     </div>
-  );
+);
+
 }
+
 
 
 
