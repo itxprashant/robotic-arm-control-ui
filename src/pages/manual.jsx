@@ -22,6 +22,7 @@ const ProgressBarSlider = ({ motorId, label }) => {
         aria-labelledby={`slider-${motorId}`}
         min={-180}
         max={180}
+        className="no-transition"
       />
       <p>Angle: {value}°</p>
     </div>
