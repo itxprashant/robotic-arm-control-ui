@@ -130,3 +130,28 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
   width: 100%;
 }
 
+
+.press-effect {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.1s ease; /* Smooth transition for the transform */
+}
+
+.press-effect:active {
+  transform: scale(0.95); /* Scale down the button to 95% of its original size */
+}
+
+.app-container {
+  /* add a gradient, rounded corner, rectangular backgroun */
+  /* add blur */
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

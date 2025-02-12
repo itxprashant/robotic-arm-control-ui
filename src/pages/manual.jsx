@@ -70,19 +70,46 @@ const styles = {
 function ManualPage(){
     return (
     <>
+
+    <div style={{ 
+      backgroundImage: 'url(../assets/robotic-background.jpg)', 
+      backgroundSize: 'cover', 
+      backgroundPosition: 'center', 
+      height: '100vh', 
+      width: '100vw', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'center' 
+    }}>
     <p>This is the manual page</p>
+    <div class="app-container">
     <div>
-        <h3>Motor 1</h3>
-        <ProgressBarSlider />
-        <h3>Motor 2</h3>
-        <ProgressBarSlider />
-        <h3>Motor 3</h3>
-        <ProgressBarSlider />
-        <h3>Motor 4</h3>
-        <ProgressBarSlider />
+      <h3>Motor 1</h3>
+      <ProgressBarSlider />
+      <h3>Motor 2</h3>
+      <ProgressBarSlider />
+      <h3>Motor 3</h3>
+      <ProgressBarSlider />
+      <h3>Motor 4</h3>
+      <ProgressBarSlider />
     </div>
+    <div id="belt-control">
+      <h3>Belt Control</h3>
+      <button style={{ background: 'transparent', border: 'none'}} class = "belt-button press-effect"> 
+        <img src="../assets/GreenButton_LeftArrow.svg" alt="Left Arrow" /> 
+      </button>
+      <span></span>
+      <button style={{ background: 'transparent', border: 'none' }} class = "belt-button press-effect"> 
+        <img src="../assets/GreenButton_RightArrow.svg" alt="Right Arrow" /> 
+      </button>
+    </div>
+</div>
+</div>
     </>
-);
+
+
+  );
 }
 
 export default ManualPage;

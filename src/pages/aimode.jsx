@@ -126,7 +126,7 @@ return (
       alignItems: 'center', 
       justifyContent: 'center' 
     }}>
-  <div className='App' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh'}}>
+  <div class='App app-container' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh'}}>
     <div>
       <button onClick={() => setIsListening((prev) => !prev)}>
         {isListening ? "Stop Listening" : "Start Listening"}
