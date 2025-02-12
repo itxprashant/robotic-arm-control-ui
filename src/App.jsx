@@ -35,15 +35,25 @@ function AIModeButton() {
 
 function Home() {
   return (
-    <>
+    <div style={{ 
+      backgroundImage: 'url(../assets/robotic-background.jpg)', 
+      backgroundSize: 'cover', 
+      backgroundPosition: 'center', 
+      height: '100vh', 
+      width: '100vw', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'center' 
+    }}>
       <h1>Welcome to Robotic Arm Control v1.0</h1>
       <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
         <ManualModeButton />
         <AutomaticModeButton />
         <AIModeButton />
       </div>
-    </>
-  );
+    </div>
+  )
 }
 
 // function ManualMode() {

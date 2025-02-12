@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
 import '../App.css'
+import { generateResponse } from "../geminiapi";
 
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -70,6 +71,13 @@ function AIModePage() {
       recognition.start();
     } else {
       recognition.stop();
+      // get the text and get the AI response
+      generateResponse(text).then((response) => {
+        // speak the response
+        speak(response);
+
+      });
+
     }
 
     return () => {
@@ -89,22 +97,50 @@ function AIModePage() {
 
 const [inputText, setInputText] = useState("");
 
-return (
-    <div>
-        <button onClick={() => setIsListening((prev) => !prev)}>
-            {isListening ? "Stop Listening" : "Start Listening"}
-        </button>
-        {/* add a newline */}
-        <br />
 
-        {/* Example Usage */}
-        <input 
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-        />
-        <button onClick={() => speak(inputText)}>Speak</button>
-        <p>{text}</p>
+
+  const [prompt, setPrompt] = useState("");
+  const [response, setResponse] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const result = await generateResponse(prompt);
+    setResponse(result);
+    // speak the result using tts
+    speak(result);
+    console.log(result);
+  };
+
+
+
+
+return (
+    <div style={{ 
+      backgroundImage: 'url(../assets/robotic-background.jpg)', 
+      backgroundSize: 'cover', 
+      backgroundPosition: 'center', 
+      height: '100vh', 
+      width: '100vw', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'center' 
+    }}>
+  <div className='App' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh'}}>
+    <div>
+      <button onClick={() => setIsListening((prev) => !prev)}>
+        {isListening ? "Stop Listening" : "Start Listening"}
+      </button>
+      <br />
+      <p>{text}</p>
+      <input style={{margin: '20px'}}
+        value={inputText}
+        onChange={(e) => setInputText(e.target.value)}
+      />
+      <button onClick={() => speak(inputText)}>Speak</button>
     </div>
+  </div>
+  </div>
 );
 
 }
