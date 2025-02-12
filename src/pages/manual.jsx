@@ -1,38 +1,28 @@
-import React from 'react';
-import { useState, useEffect } from 'react'
+import React, { useState } from 'react';
+import Slider from '@mui/material/Slider';
 import '../App.css'
 import AnimatedBackground from '../components/AnimatedBackground';
 import RoboticArmWebSocket from '../services/websocket';
 
 const ProgressBarSlider = ({ motorId, label }) => {
-  const [value, setValue] = useState(50);
+  const [value, setValue] = useState(0);
   const ws = RoboticArmWebSocket.getInstance();
 
-  const handleChange = (event) => {
-    const newValue = parseInt(event.target.value);
+  const handleChange = (event, newValue) => {
     setValue(newValue);
     ws.sendCommand(motorId, newValue);
   };
 
   return (
-    <div style={styles.container}>
-      <h3>{label}</h3>
-      <input
-        type="range"
-        min="-180"
-        max="180"
+    <div className="slider-container">
+      <label>{label}</label>
+      <Slider
         value={value}
         onChange={handleChange}
-        style={styles.slider}
+        aria-labelledby={`slider-${motorId}`}
+        min={-180}
+        max={180}
       />
-      <div style={styles.progressBar}>
-        <div
-          style={{
-            ...styles.progress,
-            width: `${((value + 180) / 360) * 100}%`,
-          }}
-        />
-      </div>
       <p>Angle: {value}°</p>
     </div>
   );
@@ -66,36 +56,5 @@ function ManualPage() {
     </AnimatedBackground>
   );
 }
-
-const styles = {
-  container: {
-    width: "300px",
-    margin: "20px auto",
-    textAlign: "center",
-  },
-  slider: {
-    width: "100%",
-    appearance: "none",
-    background: "transparent",
-    outline: "none",
-    position: "relative",
-    zIndex: 2,
-  },
-  progressBar: {
-    width: "100%",
-    height: "8px",
-    backgroundColor: "#e0e0e0",
-    borderRadius: "4px",
-    position: "relative",
-    top: "-10px",
-    zIndex: 1,
-  },
-  progress: {
-    height: "100%",
-    backgroundColor: "#76c7c0",
-    borderRadius: "4px",
-    transition: "width 0.2s ease",
-  },
-};
 
 export default ManualPage;

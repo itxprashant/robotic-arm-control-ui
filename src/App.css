@@ -292,3 +292,5 @@ input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.2);
   background: rgba(var(--color-interactive), 0.8);
 }
+
+
