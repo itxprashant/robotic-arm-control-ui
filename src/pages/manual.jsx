@@ -1,22 +1,26 @@
 import React from 'react';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import '../App.css'
+import AnimatedBackground from '../components/AnimatedBackground';
+import RoboticArmWebSocket from '../services/websocket';
 
-const ProgressBarSlider = () => {
-  // State to manage the slider value
+const ProgressBarSlider = ({ motorId, label }) => {
   const [value, setValue] = useState(50);
+  const ws = RoboticArmWebSocket.getInstance();
 
-  // Handle slider value change
   const handleChange = (event) => {
-    setValue(event.target.value);
+    const newValue = parseInt(event.target.value);
+    setValue(newValue);
+    ws.sendCommand(motorId, newValue);
   };
 
   return (
     <div style={styles.container}>
+      <h3>{label}</h3>
       <input
         type="range"
-        min="0"
-        max="100"
+        min="-180"
+        max="180"
         value={value}
         onChange={handleChange}
         style={styles.slider}
@@ -25,16 +29,44 @@ const ProgressBarSlider = () => {
         <div
           style={{
             ...styles.progress,
-            width: `${value}%`,
+            width: `${((value + 180) / 360) * 100}%`,
           }}
         />
       </div>
-      <p>Current Value: {value}</p>
+      <p>Angle: {value}°</p>
     </div>
   );
 };
 
-// Styles for the slider and progress bar
+function ManualPage() {
+  const motors = [
+    { id: 1, label: "Base Rotation" },
+    { id: 2, label: "Shoulder" },
+    { id: 3, label: "Elbow" },
+    { id: 4, label: "Wrist Roll" },
+    { id: 5, label: "Wrist Pitch" },
+    { id: 6, label: "Wrist Yaw" },
+    { id: 7, label: "Gripper" },
+  ];
+
+  return (
+    <AnimatedBackground>
+      <div className="app-container">
+        <h2>Manual Control</h2>
+        <div className="motors-grid">
+          {motors.map((motor) => (
+            <ProgressBarSlider
+              key={motor.id}
+              motorId={motor.id}
+              label={motor.label}
+            />
+          ))}
+        </div>
+      </div>
+    </AnimatedBackground>
+  );
+}
+
 const styles = {
   container: {
     width: "300px",
@@ -65,51 +97,5 @@ const styles = {
     transition: "width 0.2s ease",
   },
 };
-
-
-function ManualPage(){
-    return (
-    <>
-
-    <div style={{ 
-      backgroundImage: 'url(../assets/robotic-background.jpg)', 
-      backgroundSize: 'cover', 
-      backgroundPosition: 'center', 
-      height: '100vh', 
-      width: '100vw', 
-      display: 'flex', 
-      flexDirection: 'column', 
-      alignItems: 'center', 
-      justifyContent: 'center' 
-    }}>
-    <p>This is the manual page</p>
-    <div class="app-container">
-    <div>
-      <h3>Motor 1</h3>
-      <ProgressBarSlider />
-      <h3>Motor 2</h3>
-      <ProgressBarSlider />
-      <h3>Motor 3</h3>
-      <ProgressBarSlider />
-      <h3>Motor 4</h3>
-      <ProgressBarSlider />
-    </div>
-    <div id="belt-control">
-      <h3>Belt Control</h3>
-      <button style={{ background: 'transparent', border: 'none'}} class = "belt-button press-effect"> 
-        <img src="../assets/GreenButton_LeftArrow.svg" alt="Left Arrow" /> 
-      </button>
-      <span></span>
-      <button style={{ background: 'transparent', border: 'none' }} class = "belt-button press-effect"> 
-        <img src="../assets/GreenButton_RightArrow.svg" alt="Right Arrow" /> 
-      </button>
-    </div>
-</div>
-</div>
-    </>
-
-
-  );
-}
 
 export default ManualPage;

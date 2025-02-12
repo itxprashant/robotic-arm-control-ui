@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import ManualPage from './pages/manual.jsx';
 import AutomaticPage from './pages/automatic.jsx';
 import AIModePage from './pages/aimode.jsx';
+import AnimatedBackground from './components/AnimatedBackground';
 
 function ManualModeButton() {
   const navigate = useNavigate();
@@ -35,30 +36,16 @@ function AIModeButton() {
 
 function Home() {
   return (
-    <div style={{ 
-      backgroundImage: 'url(../assets/robotic-background.jpg)', 
-      backgroundSize: 'cover', 
-      backgroundPosition: 'center', 
-      height: '100vh', 
-      width: '100vw', 
-      display: 'flex', 
-      flexDirection: 'column', 
-      alignItems: 'center', 
-      justifyContent: 'center' 
-    }}>
+    <AnimatedBackground>
       <h1>Welcome to Robotic Arm Control v1.0</h1>
       <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
         <ManualModeButton />
         <AutomaticModeButton />
         <AIModeButton />
       </div>
-    </div>
-  )
+    </AnimatedBackground>
+  );
 }
-
-// function ManualMode() {
-//   return <h2>Manual Mode Page</h2>;
-// }
 
 function AutomaticMode() {
   return <h2>Automatic Mode Page</h2>;
