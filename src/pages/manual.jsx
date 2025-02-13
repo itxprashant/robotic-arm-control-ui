@@ -3,6 +3,8 @@ import Slider from '@mui/material/Slider';
 import '../App.css'
 import AnimatedBackground from '../components/AnimatedBackground';
 import RoboticArmWebSocket from '../services/websocket';
+import { Route, BrowserRouter as Router, Routes, useNavigate } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 
 const ProgressBarSlider = ({ motor, label, step }) => {
   const [value, setValue] = useState(0);
@@ -48,6 +50,7 @@ function ManualPage() {
 
   return (
     <AnimatedBackground>
+      <NavBar />
       <div className="app-container">
         <h2>Manual Control</h2>
         <button onClick={toggleStep}>

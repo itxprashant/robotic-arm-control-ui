@@ -2,6 +2,10 @@ import React from 'react';
 import { useState, useEffect } from 'react'
 import '../App.css'
 import { generateResponse } from "../geminiapi";
+import AnimatedBackground from '../components/AnimatedBackground';
+import RoboticArmWebSocket from '../services/websocket';
+import { Route, BrowserRouter as Router, Routes, useNavigate } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -113,20 +117,10 @@ const [inputText, setInputText] = useState("");
 
 
 
-
 return (
-    <div style={{ 
-      backgroundImage: 'url(../assets/robotic-background.jpg)', 
-      backgroundSize: 'cover', 
-      backgroundPosition: 'center', 
-      height: '100vh', 
-      width: '100vw', 
-      display: 'flex', 
-      flexDirection: 'column', 
-      alignItems: 'center', 
-      justifyContent: 'center' 
-    }}>
-  <div class='App app-container' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh'}}>
+  <AnimatedBackground>
+  <NavBar />
+  <div class='app-container' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
     <div>
       <button onClick={() => setIsListening((prev) => !prev)}>
         {isListening ? "Stop Listening" : "Start Listening"}
@@ -140,7 +134,7 @@ return (
       <button onClick={() => speak(inputText)}>Speak</button>
     </div>
   </div>
-  </div>
+  </AnimatedBackground>
 );
 
 }

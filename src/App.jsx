@@ -10,7 +10,6 @@ import AnimatedBackground from './components/AnimatedBackground';
 function ManualModeButton() {
   const navigate = useNavigate();
   const handleClick = () => {
-    console.log('Manual mode clicked');
     navigate('/manual');
   };
   return <button onClick={handleClick} className="btn-3"><span>Manual</span></button>;
@@ -19,7 +18,6 @@ function ManualModeButton() {
 function AutomaticModeButton() {
   const navigate = useNavigate();
   const handleClick = () => {
-    console.log('Automatic mode clicked');
     navigate('/automatic');
   };
   return <button onClick={handleClick} className="btn-3"><span>Automatic</span></button>;
@@ -28,7 +26,6 @@ function AutomaticModeButton() {
 function AIModeButton() {
   const navigate = useNavigate();
   const handleClick = () => {
-    console.log('AI Mode button clicked');
     navigate('/ai-mode');
   };
   return <button onClick={handleClick} className="btn-3"><span>AI Mode</span></button>;
