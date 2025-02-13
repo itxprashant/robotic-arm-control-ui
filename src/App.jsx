@@ -34,8 +34,8 @@ function AIModeButton() {
 function Home() {
   return (
     <AnimatedBackground>
+      <div class="main-page-container" style={{  justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
       <h1>Welcome to Robotic Arm Control v1.0</h1>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
         <ManualModeButton />
         <AutomaticModeButton />
         <AIModeButton />

@@ -10,11 +10,11 @@ import { Route, BrowserRouter as Router, Routes, useNavigate } from 'react-route
 export default function NavBar(){
     const navigate = useNavigate();
     return (
-    <nav>
-        <button onClick={() => navigate("/")} className="back-button">Home</button>
-        <button onClick={() => navigate("/manual")} className="back-button">Manual</button>
-        <button onClick={() => navigate("/automatic")} className="back-button">Automatic</button>
-        <button onClick={() => navigate("/ai-mode")} className="back-button">AI Mode</button>
+    <nav class="navbar">
+        <button class="btn-3" onClick={() => navigate("/")}>Home</button>
+        <button class="btn-3" onClick={() => navigate("/manual")}>Manual</button>
+        <button class="btn-3" onClick={() => navigate("/automatic")}>Automatic</button>
+        <button class="btn-3" onClick={() => navigate("/ai-mode")}>AI Mode</button>
     </nav>
     )
 }
