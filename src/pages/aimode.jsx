@@ -47,7 +47,7 @@ function AIModePage() {
       utterance.voice = femaleVoice;
     }
 
-    synth.speak(utterance);
+    // synth.speak(utterance);
   };
 
 
