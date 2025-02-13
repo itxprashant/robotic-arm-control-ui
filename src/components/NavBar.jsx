@@ -11,10 +11,16 @@ export default function NavBar(){
     const navigate = useNavigate();
     return (
     <nav class="navbar">
-        <button class="btn-3" onClick={() => navigate("/")}>Home</button>
-        <button class="btn-3" onClick={() => navigate("/manual")}>Manual</button>
-        <button class="btn-3" onClick={() => navigate("/automatic")}>Automatic</button>
-        <button class="btn-3" onClick={() => navigate("/ai-mode")}>AI Mode</button>
+        <div style = {{margin: 'auto', width: '80%'}}>
+        <div style={{ float: 'left' }}>
+            <button class="btn-3 btn-border-2" onClick={() => navigate("/")}>Home</button>
+        </div>
+        <div style={{ float: 'right' }}>
+            <button class="btn-3 btn-border" onClick={() => navigate("/manual")}>Manual</button>
+            <button class="btn-3 btn-border" onClick={() => navigate("/automatic")}>Automatic</button>
+            <button class="btn-3 btn-border" onClick={() => navigate("/ai-mode")}>AI Mode</button>
+        </div>
+        </div>
     </nav>
     )
 }

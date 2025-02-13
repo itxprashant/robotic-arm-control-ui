@@ -98,12 +98,20 @@ body {
 }
 
 .btn-border {
-  color: white;
   /* add white border */
   border: 2px solid white;
   /* add border radius */
   border-radius: 8px;
 }
+
+
+.btn-border-2 {
+  /* add white border */
+  border: 2px solid rgb(102, 109, 177);
+  /* add border radius */
+  border-radius: 8px;
+}
+
 
 .btn-3:active {
   transform: translateY(0px);
