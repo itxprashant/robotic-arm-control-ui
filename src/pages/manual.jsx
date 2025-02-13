@@ -48,12 +48,22 @@ function ManualPage() {
     setStep((prevStep) => (prevStep === 5 ? 1 : 5));
   };
 
+  const handleGripperOn = () => {
+    const ws = RoboticArmWebSocket.getInstance();
+    // ws.sendCommand(7, 166);
+  }
+
+  const handleGripperOff = () => {
+    const ws = RoboticArmWebSocket.getInstance();
+    // ws.sendCommand(7, -166);
+  }
+
   return (
     <AnimatedBackground>
       <NavBar />
       <div className="app-container">
         <h2>Manual Control</h2>
-        <button onClick={toggleStep}>
+        <button class="btn-3 btn-border" onClick={toggleStep}>
           {step === 5 ? "Smaller Steps" : "Larger Steps"}
         </button>
         <div className="motors-grid">
@@ -67,6 +77,10 @@ function ManualPage() {
               max={motor.maxVal}
             />
           ))}
+        </div>
+        <div>
+          <button class="btn-3 btn-border" onClick={() => 0}>Gripper On</button>
+          <button class="btn-3 btn-border" onClick={() => 0}>Gripper Off</button>
         </div>
       </div>
     </AnimatedBackground>

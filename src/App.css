@@ -97,6 +97,14 @@ body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+.btn-border {
+  color: white;
+  /* add white border */
+  border: 2px solid white;
+  /* add border radius */
+  border-radius: 8px;
+}
+
 .btn-3:active {
   transform: translateY(0px);
 }
