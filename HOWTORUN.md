@@ -2,7 +2,8 @@
 
 ## Controlling from Another Device
 To control the simulation from another device, you will need to edit the `WEBSOCKET_IP` variable to the target machine's IP in `config.json`.
-Make sure websocket connectivity is turned on (Modules>Connectivity>Web Socket) and firewall is disabled on target machine.
+! IMPORTANT
+Make sure websocket connectivity is turned OFF (Modules>Connectivity>Web Socket) and firewall is disabled on target machine. Our scripts will automatically turn it on and initialise correctly
 
 ### Controlling from Another Device using the CLI
 Run `pip install websockets` to install python websockets package which is needed to connect to CoppeliaSim.
