@@ -1,3 +1,5 @@
+import config from '../../config.json';
+
 class RoboticArmWebSocket {
     private ws: WebSocket | null = null;
     private static instance: RoboticArmWebSocket;
@@ -14,7 +16,7 @@ class RoboticArmWebSocket {
     }
 
     private connect() {
-        this.ws = new WebSocket('ws://127.0.0.1:23050');
+        this.ws = new WebSocket(config.WEBSOCKET_IP);
         
         this.ws.onopen = () => {
             console.log('Connected to robotic arm server');
