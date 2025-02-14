@@ -20,6 +20,18 @@ if (recognition) {
 }
 
 function AIModePage() {
+
+
+  // get websocket instance
+  const [value, setValue] = useState(0);
+  const ws = RoboticArmWebSocket.getInstance();
+
+  const handleChange = (id, newValue) => {
+    setValue(newValue);
+    ws.sendJointCommand(id, newValue);
+  };
+
+  // setup speech recognition
   const [voices, setVoices] = useState([]);
   
   useEffect(() => {
@@ -56,6 +68,8 @@ function AIModePage() {
   const [text, setText] = useState("");
   const [isListening, setIsListening] = useState(false);
 
+
+  const ai_context = "You are a command bot. When I say something like 'set to 360 the angle of joint 1', you should return a JSON object in the format: {\"command\": \"joint\", \"id\": 1, \"angle\": 360}. Return only this JSON object and nothing else.\n";
   useEffect(() => {
     if (!recognition) {
       console.error("Browser does not support speech recognition.");
@@ -76,10 +90,28 @@ function AIModePage() {
     } else {
       recognition.stop();
       // get the text and get the AI response
-      generateResponse(text).then((response) => {
+    //   generateResponse(text).then((response) => {
+    //     // speak the response
+    //     speak(response);
+    //   });
+
+
+
+      generateResponse(ai_context + text).then((response) => {
+        // Log the response for debugging
+        console.log("AI Response:", response);
+
         // speak the response
         speak(response);
 
+        // parse the response and send the command via WebSocket
+        try {
+          const command = JSON.parse(response);
+          console.log(command);
+          handleChange(command.id, command.angle);
+        } catch (error) {
+          console.error("Failed to parse JSON response:", error);
+        }
       });
 
     }

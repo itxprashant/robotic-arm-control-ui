@@ -12,7 +12,7 @@ const ProgressBarSlider = ({ motor, label, step }) => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    ws.sendCommand(motor.id, newValue);
+    ws.sendJointCommand(motor.id, newValue);
   };
 
   return (

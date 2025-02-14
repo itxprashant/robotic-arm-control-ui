@@ -33,7 +33,7 @@ class RoboticArmWebSocket {
         };
     }
 
-    sendCommand(jointId: number, value: number) {
+    sendJointCommand(jointId: number, value: number) {
         if (this.ws?.readyState === WebSocket.OPEN) {
             const command = {
                 joint: jointId,
