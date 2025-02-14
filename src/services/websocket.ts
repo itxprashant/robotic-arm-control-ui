@@ -42,6 +42,19 @@ class RoboticArmWebSocket {
             this.ws.send(JSON.stringify(command));
         }
     }
+
+    executeLuaFunction(functionName: string, args: any[] = []) {
+        if (this.ws?.readyState === WebSocket.OPEN) {
+            const request = {
+                func: functionName,
+                args: args
+            };
+            this.ws.send(JSON.stringify(request));
+        }
+    }
+
+
 }
+
 
 export default RoboticArmWebSocket;

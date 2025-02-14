@@ -10,6 +10,7 @@ const ProgressBarSlider = ({ motor, label, step }) => {
   const [value, setValue] = useState(0);
   const ws = RoboticArmWebSocket.getInstance();
 
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     ws.sendJointCommand(motor.id, newValue);
@@ -53,6 +54,11 @@ function ManualPage() {
     // ws.sendCommand(7, 166);
   }
 
+  const testFunction = () => { 
+    const ws = RoboticArmWebSocket.getInstance();
+    ws.executeLuaFunction('exampleFunction', [5, 3])
+  }
+
   const handleGripperOff = () => {
     const ws = RoboticArmWebSocket.getInstance();
     // ws.sendCommand(7, -166);
@@ -82,6 +88,10 @@ function ManualPage() {
           <button class="btn-3 btn-border" onClick={() => 0}>Gripper On</button>
           <button class="btn-3 btn-border" onClick={() => 0}>Gripper Off</button>
         </div>
+        {/* add a test button */}
+        <div>
+          <button class="btn-3 btn-border" onClick={testFunction}>Test</button>
+      </div>
       </div>
     </AnimatedBackground>
   );
