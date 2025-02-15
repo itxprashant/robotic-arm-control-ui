@@ -6,6 +6,7 @@ import ManualPage from './pages/manual.jsx';
 import AutomaticPage from './pages/automatic.jsx';
 import AIModePage from './pages/aimode.jsx';
 import AnimatedBackground from './components/AnimatedBackground';
+import SpawnObjectPage from './pages/spawn-object';
 
 function ManualModeButton() {
   const navigate = useNavigate();
@@ -60,6 +61,7 @@ function App() {
         <Route path="/manual" element={<ManualPage />} />
         <Route path="/automatic" element={<AutomaticPage />} />
         <Route path="/ai-mode" element={<AIModePage />} />
+        <Route path="/spawn-object" element={<SpawnObjectPage />} />
       </Routes>
     </Router>
   );

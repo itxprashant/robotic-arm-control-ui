@@ -18,6 +18,7 @@ export default function NavBar(){
             <button class="btn-3 btn-border" onClick={() => navigate("/manual")}>Manual</button>
             <button class="btn-3 btn-border" onClick={() => navigate("/automatic")}>Automatic</button>
             <button class="btn-3 btn-border" onClick={() => navigate("/ai-mode")}>AI Mode</button>
+        <button class="btn-3 btn-border" onClick={() => navigate("/spawn-object")}>Spawn Object</button>
         </div>
         </div>
     </nav>
