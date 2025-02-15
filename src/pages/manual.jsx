@@ -13,14 +13,14 @@ const ProgressBarSlider = ({ motor, label, step, min, max }) => {
 
   const handleSliderChange = (e) => {
     setValue(e.target.value);
-    ws.sendJointCommand(motor.id, e.target.value);
+    ws.executeLuaFunction('moveJoint', [motor.id, e.target.value * Math.PI / 180]);
   };
 
   const handleInputChange = (e) => {
     const newValue = e.target.value;
-    if (newValue >= min && newValue <= max) {
+    if (newValue !== '' && !isNaN(newValue) && newValue >= min && newValue <= max) {
       setValue(newValue);
-      ws.sendJointCommand(motor.id, newValue);
+      ws.executeLuaFunction('moveJoint', [motor.id, newValue * Math.PI / 180]);
     }
   };
 
@@ -71,7 +71,7 @@ const ManualPage = () => {
 
   const testFunction = () => { 
     const ws = RoboticArmWebSocket.getInstance();
-    ws.executeLuaFunction('exampleFunction', [5, 3])
+    ws.executeLuaFunction('testFunction', [5, 3])
   }
 
   const handleGripperOff = () => {
