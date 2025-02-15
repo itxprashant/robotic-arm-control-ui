@@ -6,12 +6,10 @@ import AnimatedBackground from '../components/AnimatedBackground';
 import RoboticArmWebSocket from '../services/websocket';
 import { Route, BrowserRouter as Router, Routes, useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
-
+import Toast from '../components/Toast';
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = SpeechRecognition ? new SpeechRecognition() : null;
-
-
 
 if (recognition) {
   recognition.continuous = true;
@@ -20,8 +18,6 @@ if (recognition) {
 }
 
 function AIModePage() {
-
-
   // get websocket instance
   const [value, setValue] = useState(0);
   const ws = RoboticArmWebSocket.getInstance();
@@ -33,7 +29,8 @@ function AIModePage() {
 
   // setup speech recognition
   const [voices, setVoices] = useState([]);
-  
+  const [notification, setNotification] = useState(null);
+
   useEffect(() => {
     // Load available voices
     const loadVoices = () => {
@@ -64,12 +61,8 @@ function AIModePage() {
     // synth.speak(utterance);
   };
 
-
-
-
   const [text, setText] = useState("");
   const [isListening, setIsListening] = useState(false);
-
 
   const ai_context = 
                 `You are a command bot. When I say something like 'set to 360 the angle of joint 1', 
@@ -89,37 +82,30 @@ function AIModePage() {
       setText(transcript);
     };
 
-    recognition.onerror = (event) => console.error("Speech recognition error:", event.error);
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
+      setNotification("Error: Could not process speech");
+    };
 
     if (isListening) {
       recognition.start();
     } else {
       recognition.stop();
-      // get the text and get the AI response
-    //   generateResponse(text).then((response) => {
-    //     // speak the response
-    //     speak(response);
-    //   });
-
-
 
       generateResponse(ai_context + text).then((response) => {
-        // Log the response for debugging
         console.log("AI Response:", response);
-
-        // speak the response
         speak(response);
 
-        // parse the response and send the command via WebSocket
         try {
           const command = JSON.parse(response);
           console.log(command);
           handleChange(command.id, command.angle);
+          setNotification(`Moving joint ${command.id} to ${command.angle} degrees`);
         } catch (error) {
           console.error("Failed to parse JSON response:", error);
+          setNotification("Error: Invalid command format");
         }
       });
-
     }
 
     return () => {
@@ -127,20 +113,7 @@ function AIModePage() {
     };
   }, [isListening]); // Re-run when isListening changes
 
-
-//   // text to speech
-// const speak = (text) => {
-//   const synth = window.speechSynthesis;
-//   const utterance = new SpeechSynthesisUtterance(text);
-//   synth.speak(utterance);
-// };
-
-
-
-const [inputText, setInputText] = useState("");
-
-
-
+  const [inputText, setInputText] = useState("");
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
 
@@ -153,37 +126,32 @@ const [inputText, setInputText] = useState("");
     console.log(result);
   };
 
-
-
-return (
-  <AnimatedBackground>
-    <NavBar />
-    <div class='app-container' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-      <div style={{ borderRadius: '50%', overflow: 'hidden', width: '200px', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 15px lightblue' }}>
-        <iframe 
-          src="/assets/ai_orb.html" 
-          style={{ border: 'none', width: '200px', height: '200px' }}
-          title="AI Orb Visualization"
-          scrolling="no"
-        ></iframe>
+  return (
+    <AnimatedBackground>
+      <NavBar />
+      <div class='app-container' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+        <div style={{ borderRadius: '50%', overflow: 'hidden', width: '200px', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 15px lightblue' }}>
+          <iframe 
+            src="/assets/ai_orb.html" 
+            style={{ border: 'none', width: '200px', height: '200px' }}
+            title="AI Orb Visualization"
+            scrolling="no"
+          ></iframe>
+        </div>
+        <div style={{ height: '100px' }}></div>
+        <button class="btn-3 btn-border" style={{width: '200px'}} onClick={() => setIsListening((prev) => !prev)}>
+          {isListening ? "Stop Listening" : "Start Listening"}
+        </button>
+        <p>{text}</p>
       </div>
-      <div style={{ height: '100px' }}></div>
-      <button class="btn-3 btn-border" style={{width: '200px'}} onClick={() => setIsListening((prev) => !prev)}>
-        {isListening ? "Stop Listening" : "Start Listening"}
-      </button>
-      <p>{text}</p>
-      {/* <input style={{margin: '20px'}}
-        value={inputText}
-        onChange={(e) => setInputText(e.target.value)}
-      />
-      <button class="btn-3 btn-border" style={{width: '200px'}} onClick={() => speak(inputText)}>Speak</button> */}
-    </div>
-  </AnimatedBackground>
-);
-
+      {notification && (
+        <Toast
+          message={notification}
+          onClose={() => setNotification(null)}
+        />
+      )}
+    </AnimatedBackground>
+  );
 }
-
-
-
 
 export default AIModePage;
