@@ -1,5 +1,8 @@
 # HOW TO RUN
 
+## Setting up Coppelia
+Load the scene in CoppeliaSim. Open `object_manipulation` script and change the `folder_path` in `sysCall_init` to the folder of Models of objects. 
+
 ## Controlling from Another Device
 To control the simulation from another device, you will need to edit the `WEBSOCKET_IP` variable to the target machine's IP in `config.json`.
 ! IMPORTANT
@@ -22,3 +25,4 @@ After that, run `npm run dev` and visit the address on which the page is running
 
 ## Controlling from the Same Device
 A basic UI is built-in in the script and can be used to control the arm after starting the simulation. Additionally you can use the same CLI and WEB UI locally too. The procedure is the same as above except that the IP address will instead be `127.0.0.1` (or the localhost inet IP, which can be found, on linux/unix with `ifconfig`)
+
