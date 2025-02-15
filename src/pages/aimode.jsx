@@ -28,7 +28,7 @@ function AIModePage() {
 
   const handleChange = (id, newValue) => {
     setValue(newValue);
-    ws.sendJointCommand(id, newValue);
+    ws.executeLuaFunction("moveJoint", [id, newValue]);
   };
 
   // setup speech recognition

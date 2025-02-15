@@ -7,7 +7,7 @@ import NavBar from '../components/NavBar';
 function SpawnObjectPage() {
     const handleSpawnObject = (objectType) => {
         const ws = RoboticArmWebSocket.getInstance();
-        ws.executeLuaFunction('spawnObject', [objectType]);
+        ws.executeLuaFunction('spawnObject', [Number(objectType)]);
     };
 
     return (
@@ -37,28 +37,28 @@ function SpawnObjectPage() {
                     }}>
                         <button 
                             className="btn-3 btn-border" 
-                            onClick={() => handleSpawnObject('cuboid')}
+                            onClick={() => handleSpawnObject('5')}
                             style={{ width: '200px' }}
                         >
                             Cuboid
                         </button>
                         <button 
                             className="btn-3 btn-border" 
-                            onClick={() => handleSpawnObject('sphere')}
+                            onClick={() => handleSpawnObject('6')}
                             style={{ width: '200px' }}
                         >
                             Sphere
                         </button>
                         <button 
                             className="btn-3 btn-border" 
-                            onClick={() => handleSpawnObject('cylinder')}
+                            onClick={() => handleSpawnObject('7')}
                             style={{ width: '200px' }}
                         >
                             Cylinder
                         </button>
                         <button 
                             className="btn-3 btn-border" 
-                            onClick={() => handleSpawnObject('capsule')}
+                            onClick={() => handleSpawnObject('8')}
                             style={{ width: '200px' }}
                         >
                             Capsule
@@ -88,28 +88,28 @@ function SpawnObjectPage() {
                     }}>
                         <button 
                             className="btn-3 btn-border" 
-                            onClick={() => handleSpawnObject('plate')}
+                            onClick={() => handleSpawnObject('1')}
                             style={{ width: '200px' }}
                         >
                             Plate
                         </button>
                         <button 
                             className="btn-3 btn-border" 
-                            onClick={() => handleSpawnObject('redCup')}
+                            onClick={() => handleSpawnObject('2')}
                             style={{ width: '200px' }}
                         >
                             Red Cup
                         </button>
                         <button 
                             className="btn-3 btn-border" 
-                            onClick={() => handleSpawnObject('copperCup')}
+                            onClick={() => handleSpawnObject('3')}
                             style={{ width: '200px' }}
                         >
                             Copper Cup
                         </button>
                         <button 
                             className="btn-3 btn-border" 
-                            onClick={() => handleSpawnObject('dumbBell')}
+                            onClick={() => handleSpawnObject('4')}
                             style={{ width: '200px' }}
                         >
                             Dumb Bell
