@@ -66,7 +66,7 @@ const ManualPage = () => {
 
   const handleGripperOn = () => {
     const ws = RoboticArmWebSocket.getInstance();
-    // ws.sendCommand(7, 166);
+    ws.executeLuaFunction('openGripper', [1,1])
   }
 
   const testFunction = () => { 
@@ -76,7 +76,7 @@ const ManualPage = () => {
 
   const handleGripperOff = () => {
     const ws = RoboticArmWebSocket.getInstance();
-    // ws.sendCommand(7, -166);
+    ws.executeLuaFunction('closeGripper', [1,1])
   }
 
   return (
@@ -100,8 +100,8 @@ const ManualPage = () => {
           ))}
         </div>
         <div style={{marginBottom: '20px'}}>
-          <button className="btn-3 btn-border" onClick={() => 0}>Gripper On</button>
-          <button className="btn-3 btn-border" onClick={() => 0}>Gripper Off</button>
+          <button className="btn-3 btn-border" onClick={handleGripperOn}>Gripper On</button>
+          <button className="btn-3 btn-border" onClick={handleGripperOff}>Gripper Off</button>
         </div>
         {/* add a test button */}
         <div>

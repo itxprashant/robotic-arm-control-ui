@@ -47,6 +47,8 @@ function AIModePage() {
   }, []);
 
   const speak = (text) => {
+    if (!text) return; // Add this line to prevent speaking on page load
+
     const synth = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text);
 
@@ -69,7 +71,11 @@ function AIModePage() {
   const [isListening, setIsListening] = useState(false);
 
 
-  const ai_context = "You are a command bot. When I say something like 'set to 360 the angle of joint 1', you should return a JSON object in the format: {\"command\": \"joint\", \"id\": 1, \"angle\": 360}. Return only this JSON object and nothing else.\n";
+  const ai_context = 
+                `You are a command bot. When I say something like 'set to 360 the angle of joint 1', 
+                you should return a JSON object in the format: {\"command\": \"joint\", \"id\": 1, \"angle\": 360}.
+                 Return only this JSON object and nothing else.\n`;
+
   useEffect(() => {
     if (!recognition) {
       console.error("Browser does not support speech recognition.");

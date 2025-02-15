@@ -29,6 +29,16 @@ function AutomaticPage() {
         ws.executeLuaFunction('executeShape', [shape]);
     };
 
+    const handlePickObject = () => {
+        const ws = RoboticArmWebSocket.getInstance();
+        ws.executeLuaFunction('pickObject', []);
+    }
+
+    const handlePlaceObject = () => {
+        const ws = RoboticArmWebSocket.getInstance();
+        ws.executeLuaFunction('placeObject', []);
+    }
+
     return (
       <AnimatedBackground>
         <NavBar />
@@ -100,6 +110,12 @@ function AutomaticPage() {
             </div>
             <button className="btn-3 btn-border" onClick={handleSubmit} style={{ width: '200px' }}>
               Move to Position
+            </button>
+            <button className="btn-3 btn-border" onClick={handlePickObject} style={{ width: '200px' }}>
+              Pick Object
+            </button>
+            <button className="btn-3 btn-border" onClick={handlePlaceObject} style={{ width: '200px' }}>
+              Place Object
             </button>
           </div>
 
