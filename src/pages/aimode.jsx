@@ -151,21 +151,27 @@ const [inputText, setInputText] = useState("");
 
 return (
   <AnimatedBackground>
-  <NavBar />
-  <div class='app-container' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-    <div>
-      <button onClick={() => setIsListening((prev) => !prev)}>
+    <NavBar />
+    <div class='app-container' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+      <div style={{ borderRadius: '50%', overflow: 'hidden', width: '200px', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 15px lightblue' }}>
+        <iframe 
+          src="/assets/ai_orb.html" 
+          style={{ border: 'none', width: '200px', height: '200px' }}
+          title="AI Orb Visualization"
+          scrolling="no"
+        ></iframe>
+      </div>
+      <div style={{ height: '100px' }}></div>
+      <button class="btn-3 btn-border" style={{width: '200px'}} onClick={() => setIsListening((prev) => !prev)}>
         {isListening ? "Stop Listening" : "Start Listening"}
       </button>
-      <br />
       <p>{text}</p>
-      <input style={{margin: '20px'}}
+      {/* <input style={{margin: '20px'}}
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
       />
-      <button onClick={() => speak(inputText)}>Speak</button>
+      <button class="btn-3 btn-border" style={{width: '200px'}} onClick={() => speak(inputText)}>Speak</button> */}
     </div>
-  </div>
   </AnimatedBackground>
 );
 
