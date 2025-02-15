@@ -1,48 +1,63 @@
 import React, { useState } from 'react';
 import Slider from '@mui/material/Slider';
-import '../App.css'
+import '../App.css';
 import AnimatedBackground from '../components/AnimatedBackground';
 import RoboticArmWebSocket from '../services/websocket';
 import { Route, BrowserRouter as Router, Routes, useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import defaultJointPos from '../../default_joint_pos.json';
 
-const ProgressBarSlider = ({ motor, label, step }) => {
-  const [value, setValue] = useState(0);
+const ProgressBarSlider = ({ motor, label, step, min, max }) => {
+  const [value, setValue] = useState(motor.value);
   const ws = RoboticArmWebSocket.getInstance();
 
+  const handleSliderChange = (e) => {
+    setValue(e.target.value);
+    ws.sendJointCommand(motor.id, e.target.value);
+  };
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    ws.sendJointCommand(motor.id, newValue);
+  const handleInputChange = (e) => {
+    const newValue = e.target.value;
+    if (newValue >= min && newValue <= max) {
+      setValue(newValue);
+      ws.sendJointCommand(motor.id, newValue);
+    }
   };
 
   return (
-    <div className="slider-container">
+    <div className="progress-bar-slider" style={{ padding: '10px' }}>
       <label>{label}</label>
-      <Slider
-        value={value}
-        onChange={handleChange}
-        aria-labelledby={`slider-${motor.id}`}
-        min= {motor.minVal}
-        max= {motor.maxVal}
+      <input
+        type="range"
+        min={min}
+        max={max}
         step={step}
-        className="no-transition"
+        value={value}
+        onChange={handleSliderChange}
+        style={{ marginRight: '10px' }}
       />
-      <p>Angle: {value}°</p>
+      <input
+        style={{ width: '50px' }}
+        type="number"
+        min={min}
+        max={max}
+        value={value}
+        onChange={handleInputChange}
+      />
     </div>
   );
 };
 
-function ManualPage() {
+const ManualPage = () => {
   const [step, setStep] = useState(5);
   const motors = [
-    { id: 1, label: "Base Rotation", minVal: -166, maxVal: 166 },
-    { id: 2, label: "Shoulder", minVal: -101, maxVal: 101 },
-    { id: 3, label: "Elbow", minVal: -166, maxVal: 166 },
-    { id: 4, label: "Wrist Roll", minVal: -176, maxVal: -4 },
-    { id: 5, label: "Wrist Pitch", minVal: -166, maxVal: 166 },
-    { id: 6, label: "Wrist Yaw", minVal: -1, maxVal: 215 },
-    { id: 7, label: "Gripper", minVal: -166, maxVal: 166 },
+    { id: 1, label: "Base Rotation", minVal: -166, maxVal: 166, value: defaultJointPos["1"] },
+    { id: 2, label: "Shoulder", minVal: -101, maxVal: 101, value: defaultJointPos["2"] },
+    { id: 3, label: "Elbow", minVal: -166, maxVal: 166, value: defaultJointPos["3"] },
+    { id: 4, label: "Wrist Roll", minVal: -176, maxVal: -4, value: defaultJointPos["4"] },
+    { id: 5, label: "Wrist Pitch", minVal: -166, maxVal: 166, value: defaultJointPos["5"] },
+    { id: 6, label: "Wrist Yaw", minVal: -1, maxVal: 215, value: defaultJointPos["6"] },
+    { id: 7, label: "Gripper", minVal: -166, maxVal: 166, value: defaultJointPos["7"] },
   ];
 
   const toggleStep = () => {
@@ -69,7 +84,7 @@ function ManualPage() {
       <NavBar />
       <div className="app-container">
         <h2>Manual Control</h2>
-        <button class="btn-3 btn-border" onClick={toggleStep}>
+        <button className="btn-3 btn-border" onClick={toggleStep}>
           {step === 5 ? "Smaller Steps" : "Larger Steps"}
         </button>
         <div className="motors-grid">
@@ -84,13 +99,13 @@ function ManualPage() {
             />
           ))}
         </div>
-        <div>
-          <button class="btn-3 btn-border" onClick={() => 0}>Gripper On</button>
-          <button class="btn-3 btn-border" onClick={() => 0}>Gripper Off</button>
+        <div style={{marginBottom: '20px'}}>
+          <button className="btn-3 btn-border" onClick={() => 0}>Gripper On</button>
+          <button className="btn-3 btn-border" onClick={() => 0}>Gripper Off</button>
         </div>
         {/* add a test button */}
         <div>
-          <button class="btn-3 btn-border" onClick={testFunction}>Test</button>
+          <button className="btn-3 btn-border" onClick={testFunction}>Test</button>
       </div>
       </div>
     </AnimatedBackground>
