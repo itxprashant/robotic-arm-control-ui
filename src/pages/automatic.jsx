@@ -112,7 +112,7 @@ function AutomaticPage() {
             background: 'rgba(255, 255, 255, 0.1)',
             borderRadius: '10px',
             backdropFilter: 'blur(10px)',
-            maxWidth: '900px',
+            maxWidth: '1000px',
             margin: '0 auto'
           }}>
             <h3>Predefined Scripts</h3>
