@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
 import '../App.css'
-import { generateResponse } from "../geminiapi";
 import Slider from '@mui/material/Slider';
 import AnimatedBackground from '../components/AnimatedBackground';
 import RoboticArmWebSocket from '../services/websocket';

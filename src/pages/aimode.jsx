@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
 import '../App.css'
-import { generateResponse } from "../geminiapi";
+import { generateResponse } from "../services/geminiapi";
 import AnimatedBackground from '../components/AnimatedBackground';
 import RoboticArmWebSocket from '../services/websocket';
 import { Route, BrowserRouter as Router, Routes, useNavigate } from 'react-router-dom';
