@@ -1,57 +1,29 @@
 # Robotic Arm Control with React + Vite
 
-This project provides a minimal setup to get a React application working with Vite, featuring Hot Module Replacement (HMR) and ESLint rules. The application is designed to control a robotic arm using a web interface.
+# HOW TO RUN
 
-## Table of Contents
+## Setting up Coppelia
+Load the scene in CoppeliaSim. Open `object_manipulation` script and change the `folder_path` in `sysCall_init` to the folder of Models of objects. 
 
-- [Features](#features)
-- [Getting Started](#getting-started)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Scripts](#scripts)
-- [Dependencies](#dependencies)
-- [Development](#development)
-- [Contributing](#contributing)
-- [License](#license)
+## Controlling from Another Device
+To control the simulation from another device, you will need to edit the `WEBSOCKET_IP` variable to the target machine's IP in `config.json`.
+! IMPORTANT
+Make sure websocket connectivity is turned OFF (Modules>Connectivity>Web Socket) and firewall is disabled on target machine. Our scripts will automatically turn it on and initialise correctly
 
-## Features
+### Controlling from Another Device using the CLI
+Run `pip install websockets` to install python websockets package which is needed to connect to CoppeliaSim.
+After that, run `python robotic-cli.py`
 
-- Fast development with Vite
-- Hot Module Replacement (HMR) for instant feedback
-- ESLint integration for code quality
-- React Router for navigation
-- Axios for HTTP requests
-- Control a robotic arm through a web interface
+The script is fairly self explanatory. You can enter `?` for help, or the `<component_name> ?` for help about how to control the specific type of component.
 
-## Getting Started
+### Controlling from Another Device using the WEB UI
 
-Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+Navigate to the frontend directory and run `npm i` to install frontend dependencies.
+After that, run `npm run dev` and visit the address on which the page is running. The Web UI is intuitive and self explanatory with 3 modes of control.
 
-### Prerequisites
+1. Manual mode for direct precise control in each degree of freedom.
+2. Automatic mode for controlling the end effectors directly, and for predefined scripts.
+3. AI Mode for interactive voice based control.
 
-- Node.js (v14 or later)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/your-username/robotic-arm.git
-    cd robotic-arm
-    ```
-
-2. Install the dependencies:
-    ```sh
-    npm install
-    # or
-    yarn install
-    ```
-
-## Usage
-
-To start the development server, run:
-```sh
-npm run dev
-# or
-yarn dev
-```
+## Controlling from the Same Device
+A basic UI is built-in in the script and can be used to control the arm after starting the simulation. Additionally you can use the same CLI and WEB UI locally too. The procedure is the same as above except that the IP address will instead be `127.0.0.1` (or the localhost inet IP, which can be found, on linux/unix with `ifconfig`)
